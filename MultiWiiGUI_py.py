@@ -465,7 +465,8 @@ class MultiWiiConfGUI(QMainWindow):
 
     def get_serial_ports(self):
         """List available serial ports."""
-        ports = [f"/dev/ttys00{i}" for i in range(0,10)]   # Adjust this based on your OS and available ports.
+        # ports = [f"/dev/ttys00{i}" for i in range(0,10)]   # Adjust this based on your OS and available ports.
+        ports = [f"COM{i}" for i in range(0,10)] # adjust according OS
         return ports
 
     def connect_to_serial(self):
@@ -477,7 +478,7 @@ class MultiWiiConfGUI(QMainWindow):
                 raise ValueError("No COM port selected")
             
             if not self.serial_port or not self.serial_port.is_open:
-                fixed_port_name = "/dev/ttys047"
+                fixed_port_name = "/dev/ttys047" # fixed
                 self.serial_port = serial.Serial(fixed_port_name, baudrate=self.baud_rate, timeout=1)
                 print(f"Connected to {fixed_port_name}")
                 self.telemetry_label.setText(f"Connected to {fixed_port_name}")
